@@ -20,18 +20,12 @@ if (!empty($un) && !empty($pass)) {
 	include('student.html');
 	
 	}else {
-	echo '<script language="javascript">';
-	echo 'alert("Invalid Username Or Password")';
-	echo '</script>';
-	include('blog.html');
+	include('blogdub.html');
 		}
 	
 
  }else {
-	echo '<script language="javascript">';
-	echo 'alert("Unsuccessful Login!")';
-	echo '</script>';
-	include('blog.html');
+	include('blogdub.html');
 }
 mysql_close($dbhandle);
 ?>

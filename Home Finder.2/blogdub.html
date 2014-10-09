@@ -10,6 +10,12 @@
     <link rel="stylesheet" type="text/css" href="Template-IpadLoginJS/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="Template-IpadLoginJS/font-awesome/css/font-awesome.min.css" />
 
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+   <link rel="stylesheet" href="/resources/demos/style.css">
+   
+
    
 </head>
 <body>
@@ -55,32 +61,59 @@
 										<input id="username" type="text"  name= "username" placeholder="username">
 										<input id="password" type="password" name="password" placeholder="password">
 										<input type="submit" name="submit" value="Sign in" >
-										<div>
 										
+										<div>
 										<a href="application.html">Forgot your password?</a>
 										</div>
 										
-									   <!-- <button id="button1" class="btn btn-default wide hidden"> <span class="fa fa-check med"></span></button>
-										<span id="lock1" class="fa fa-lock medhidden redborder"></span>-->
 									</div>
 								</div>
 							</div>
 						</div>
-									</form>
-						<script type="text/javascript">
-
-
-							function check_values() {
-								if ($("#username").val().length != 0 && $("#password").val().length != 0) {
-									$("#button1").removeClass("hidden").animate({ left: '250px' });;
-									$("#lock1").addClass("hidden").animate({ left: '250px' });;
-								}
-							}
-
-
-						</script>
+						</form>
+											
+							<div id="dialog-message" class=".ui-widget-header " title ="Error Massage" >
+							<div>
+							  <p>
+								 <span class="" style="float: left; margin: 0 7px 20px 0;"></span>
+								    <p class="red">Invalid Login!.. Try Again</p>
+							  </p>
+							</div>
+							</div>
+							
+						   <script>
+						     
+								  $(function() {
+								$( "#dialog-message" ).dialog({
+									modal: true,
+										  buttons: {
+										Ok: function() {
+										$( this ).dialog( "close" );
+										}
+									  }
+									});
+								  });
+							</script>
 
 						<style>
+						
+						.ui-widget-header {
+							  border: 1px solid #aaaaaa /*{borderColorHeader}*/;
+							  background:#FF6633/*{bgColorHeader}*/
+							  url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) /*{bgImgUrlHeader}*/
+							  50% /*{bgHeaderXPos}*/
+							  50% /*{bgHeaderYPos}*/
+							  repeat-x /*{bgHeaderRepeat}*/;
+							  color: #F5FFFA /*{fcHeader}*/;
+							  font-weight:bold;
+							  font-size: 20px;
+							}
+					
+						.red {
+							color: #000000;
+							font-size: 15px;
+						}	
+						
 						.redborder {
 							border:2px solid #f96145;
 							border-radius:2px;
