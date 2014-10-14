@@ -1,16 +1,17 @@
 <!--<!DOCTYPE html>-->
+
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Blog - Student Accommodation Website</title>
+	<title>Reset password- Student Accommodation Website</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" /
 
     <link rel="stylesheet" type="text/css" href="Template-IpadLoginJS/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="Template-IpadLoginJS/font-awesome/css/font-awesome.min.css" />
 
-    <script type="text/javascript" src="Template-IpadLoginJS/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="Template-IpadLoginJS/bootstrap/js/bootstrap.min.js"></script>
+    <!--<script type="text/javascript" src="Template-IpadLoginJS/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="Template-IpadLoginJS/bootstrap/js/bootstrap.min.js"></script>-->
 </head>
 <body>
 	<div class="header">
@@ -24,13 +25,13 @@
 					<a href="about.html"><span>A</span>bout</a>
 				</li>
 				<li>
-					<a href="programs.html"><span>V</span>iew</a>
-				</li>
-				<li class="selected">
-					<a href="blog.html"><span>L</span>ogin</a>
+					<a href="activities.html"><span>V</span>iew</a>
 				</li>
 				<li>
-					<a href="staff.html"><span>S</span>taff</a>
+					<a href="blog.html"><span>L</span>ogin</a>
+				</li>
+				<li><!-- class="selected">-->
+					<a href="gallary.html"><span>G</span>allary</a>
 				</li>
 				<li>
 					<a href="contact.html"><span>C</span>ontact</a>
@@ -44,57 +45,23 @@
 		</div>
 	</div>
 	<!--<div class="body">
-		<div>
+		<div class="applications">
 			<div>
 				<div>
-					<div class="blog">
-						<h2>Sign Up</h2>
-						<div class="first">
-						<!-- Interactive Login - START -->
+					<div class="application">
+						<h2>Better Accommodation</h2>-->
 						<div class="container">
-							<!--<div class="row colored">-->
-								<div id="contentdiv" class="contcustom">
+						<div id="contentdiv" class="contcustom">
 									<span class="fa fa-spinner bigicon"></span>
-									
-									<h2>Login</h2>
+									<h2>Reset Password</h2>
 									<div>
-									<!-- my work-->
-									<form action="" method="POST">
-										<input id="username" type="text" name="username" placeholder="username">
-										<input id="password" type="password" name="password" placeholder="password">
-										<input type="submit" name="submit" value="Sign in" >
-										</form>
-
-										<?php
-										if(isset($_POST["submit"]))(
-										$un=$_POST['username'];
-										$pass=md5($_POST['password']);
-										
-										$dbhandle = mysql_connect("localhost", "root", "") or die ("Unable to connect to MySQL");
-									    mysql_select_db('test') or die("Could not select examples");
-										echo "success";
-										
-										$val=mysql_query("SELECT password FROM prospective_tenent WHERE Reg_No='"$un"'");
-										
-										if($val==$pass)
-										{
-										<a href="student.html"></a>
-										}
-										else{
-										echo "Invalid Username or Password!";}									
-										)
-										?>
-										<!--<a href="student.html"></a>-->
-										<div>
-										<a href="application.html">Forgot your password?</a>
-										</div>
-										<!--<span id="lock1" class="fa fa-lock medhidden redborder"></span>-->
-										
-									   <!-- <button id="button1" class="btn btn-default wide hidden"> <span class="fa fa-check med"></span></button>
-										<span id="lock1" class="fa fa-lock medhidden redborder"></span>-->
+										<input id="username" type="text" placeholder="username" onkeypress="check_values();">
+										<input id="new password" type="password" placeholder="new password" onkeypress="check_values();">
+										<input id="confirm password" type="password" placeholder="confirm password" onkeypress="check_values();">
+										<a href="blog.html"><input type="submit" name="submit" value="Reset" ></a>
 									</div>
 								</div>
-							
+							</div>
 						</div>
 
 						<script type="text/javascript">
@@ -139,19 +106,19 @@
 
 						.contcustom {
 							text-align: center;
-							width: 500px;
+							width: 350px;
 							border-radius: 0.5rem;
 							top: 0;
 							bottom: 0;
 							left: 0;
 							right: 0;
 							margin: 10px auto;
-							background : -moz-linear-gradient(#FF9900,#ffffcc,#ffffaa,#ffffbb,#FF9900,#ffffaa);
+							background : -moz-linear-gradient(#FF9900,#ffffaa,#ffffcc,#ffffbb,#FF9900,#ffffaa);
 							padding: 20px;
 						}
 
 						input {
-							width: 75%;
+							width: 100%;
 							margin-bottom: 17px;
 							padding: 15px;
 							background-color: #ECF4F4;
@@ -193,9 +160,6 @@
 							border-bottom-right-radius: 0;
 						}
 						</style>
-
-						
-						</div>
 					</div>
 				</div>
 			</div>
@@ -205,13 +169,13 @@
 		<div>
 			
 			<div class="connect">
-				<font size="3" color="gray"><b>FOLLOW US:</b></font>
+				<h4>FOLLOW US:</h4>
 				<a href="http://freewebsitetemplates.com/go/facebook/" class="facebook">Facebook</a> <a href="http://freewebsitetemplates.com/go/twitter/" class="twitter">Twitter</a> <a href="http://freewebsitetemplates.com/go/googleplus/" class="google">Google+</a>
 			</div>
 		</div>
 		<div>
 			<p>
-				Student Accommodation &#169; 2014| All Rights Reserved
+				Student Accommodation &#169; 2014 | All Rights Reserved
 			</p>
 		</div>
 	</div>

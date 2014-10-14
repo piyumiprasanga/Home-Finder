@@ -1,16 +1,22 @@
 <!--<!DOCTYPE html>-->
+
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Blog - Student Accommodation Website</title>
+	<title>sign up - Student Accommodation Website</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/
 
     <link rel="stylesheet" type="text/css" href="Template-IpadLoginJS/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="Template-IpadLoginJS/font-awesome/css/font-awesome.min.css" />
 
-    <script type="text/javascript" src="Template-IpadLoginJS/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="Template-IpadLoginJS/bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+   <link rel="stylesheet" href="/resources/demos/style.css">
+   
+
+   
 </head>
 <body>
 	<div class="header">
@@ -24,13 +30,13 @@
 					<a href="about.html"><span>A</span>bout</a>
 				</li>
 				<li>
-					<a href="programs.html"><span>V</span>iew</a>
+					<a href="activities.html"><span>V</span>iew</a>
 				</li>
 				<li class="selected">
 					<a href="blog.html"><span>L</span>ogin</a>
 				</li>
 				<li>
-					<a href="staff.html"><span>S</span>taff</a>
+					<a href="gallary.html"><span>G</span>allary</a>
 				</li>
 				<li>
 					<a href="contact.html"><span>C</span>ontact</a>
@@ -43,74 +49,73 @@
 			</div>
 		</div>
 	</div>
-	<!--<div class="body">
-		<div>
-			<div>
-				<div>
-					<div class="blog">
-						<h2>Sign Up</h2>
-						<div class="first">
-						<!-- Interactive Login - START -->
+	
+					<!--  Interactive Login - START -->
 						<div class="container">
-							<!--<div class="row colored">-->
+							<!-- <div class="row colored">-->
 								<div id="contentdiv" class="contcustom">
 									<span class="fa fa-spinner bigicon"></span>
-									
 									<h2>Login</h2>
+									<form action="stu.php" method="post" >
 									<div>
-									<!-- my work-->
-									<form action="" method="POST">
-										<input id="username" type="text" name="username" placeholder="username">
+										<input id="username" type="text"  name= "username" placeholder="username">
 										<input id="password" type="password" name="password" placeholder="password">
 										<input type="submit" name="submit" value="Sign in" >
-										</form>
-
-										<?php
-										if(isset($_POST["submit"]))(
-										$un=$_POST['username'];
-										$pass=md5($_POST['password']);
 										
-										$dbhandle = mysql_connect("localhost", "root", "") or die ("Unable to connect to MySQL");
-									    mysql_select_db('test') or die("Could not select examples");
-										echo "success";
-										
-										$val=mysql_query("SELECT password FROM prospective_tenent WHERE Reg_No='"$un"'");
-										
-										if($val==$pass)
-										{
-										<a href="student.html"></a>
-										}
-										else{
-										echo "Invalid Username or Password!";}									
-										)
-										?>
-										<!--<a href="student.html"></a>-->
 										<div>
 										<a href="application.html">Forgot your password?</a>
 										</div>
-										<!--<span id="lock1" class="fa fa-lock medhidden redborder"></span>-->
 										
-									   <!-- <button id="button1" class="btn btn-default wide hidden"> <span class="fa fa-check med"></span></button>
-										<span id="lock1" class="fa fa-lock medhidden redborder"></span>-->
 									</div>
 								</div>
-							
+							</div>
 						</div>
-
-						<script type="text/javascript">
-
-
-							function check_values() {
-								if ($("#username").val().length != 0 && $("#password").val().length != 0) {
-									$("#button1").removeClass("hidden").animate({ left: '250px' });;
-									$("#lock1").addClass("hidden").animate({ left: '250px' });;
-								}
-							}
-
-
-						</script>
+						</form>
+											
+							<div id="dialog-message" class=".ui-widget-header " title ="Error Massage" >
+							<div>
+							  <p>
+								 <span class="" style="float: left; margin: 0 7px 20px 0;"></span>
+								    <p class="red"> Invalid Login.. Please Try Again!</p>
+									 <!--<p class="red">Please Try Again</p>-->
+							  </p>
+							</div>
+							</div>
+							
+						   <script>
+						     
+								  $(function() {
+								$( "#dialog-message" ).dialog({
+									modal: true,
+										  buttons: {
+										Ok: function() {
+										$( this ).dialog( "close" );
+										}
+									  }
+									});
+								  });
+							</script>
 
 						<style>
+						
+						.ui-widget-header {
+							  border: 2px solid #FF6633 /*{borderColorHeader}*/;
+							  background:#FF6633/*{bgColorHeader}*/
+							  url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) /*{bgImgUrlHeader}*/
+							  50% /*{bgHeaderXPos}*/
+							  50% /*{bgHeaderYPos}*/
+							  repeat-x /*{bgHeaderRepeat}*/;
+							  color: #F5FFFA /*{fcHeader}*/;
+							  font-weight:bold;
+							  font-size: 20px;
+							}
+					
+						.red {
+							color: #000000;
+							font-size: 15px;
+							text-align: center;
+						}	
+						
 						.redborder {
 							border:2px solid #f96145;
 							border-radius:2px;
@@ -146,7 +151,7 @@
 							left: 0;
 							right: 0;
 							margin: 10px auto;
-							background : -moz-linear-gradient(#FF9900,#ffffcc,#ffffaa,#ffffbb,#FF9900,#ffffaa);
+							background : -moz-linear-gradient(#FF9900,#ffffaa,#ffffcc,#ffffbb,#FF9900,#ffffaa);
 							padding: 20px;
 						}
 
@@ -194,7 +199,9 @@
 						}
 						</style>
 
-						
+						<!-- Interactive Login - END -->
+							
+							
 						</div>
 					</div>
 				</div>
