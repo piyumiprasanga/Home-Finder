@@ -11,43 +11,43 @@ $firstname = $lastname = $NIC = $regno = $address = $email = $faculty = $passwor
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-if (empty($_POST['First_Name'])){
-$firstnameErr = "Required";
+if (preg_match("/^[a-zA-Z][a-zA-Z -]+$/",$_POST['First_Name']) === 0){
+$firstnameErr = "Name must be from letters";
 }
 else{ 
 $firstname = test_input($_POST['First_Name']);
 }
 
-if (empty($_POST['Last_Name'])){
-$lastnameErr = "Required";
+if (preg_match("/^[a-zA-Z][a-zA-Z -]+$/",$_POST['Last_Name']) === 0){
+$lastnameErr = "Name must be from letters";
 }
 else{
 $lastname = test_input($_POST['Last_Name']);
 }
 
-if (empty($_POST['NIC'])){
-$NICErr = "Required";
+if (preg_match("/^[0-9a-zA-Z]{10}$/",$_POST['NIC']) === 0){
+$NICErr = "NIC must contain 9 digits";
 }
 else{
 $NIC = test_input($_POST['NIC']);
 }
 
-if (empty($_POST['username'])){
-$regnoErr = "Required";
+if (preg_match("/^[0-9a-zA-Z -]{5,}$/",$_POST['username']) === 0){
+$regnoErr = "required";
 }
 else{
 $regno = test_input($_POST['username']);
 }
 
 if (empty($_POST['address'])){
-$addressErr = "Required";
+$addressErr = "required";
 }
 else{
 $address = test_input($_POST['address']);
 }
 
 if (empty($_POST['email'])){
-$emailErr = "Required";
+$emailErr = "required";
 }
 else{
 $email = test_input($_POST['email']);
@@ -55,22 +55,22 @@ $email = test_input($_POST['email']);
 
 $faculty = test_input($_POST['faculty']);
 
-if (empty($_POST['password'])){
-$passwordErr = "Required";
+if (preg_match("/^[0-9a-zA-Z -]{6,}$/",$_POST['password']) === 0){
+$passwordErr = "password length must be at least 6 characters";
 }
 else{
 $password = test_input(md5($_POST['password']));
 }
 
-if (empty($_POST['tel-number'])){
-$contactnoErr = "Required";
+if (preg_match("/^[0-9]{10,}$/",$_POST['tel-number']) === 0){
+$contactnoErr = "enter valid phone number";
 }
 else{
 $contactno = test_input($_POST['tel-number']);
 }
 
 if (empty($_POST['notification'])){
-$notificationErr = "Required";
+$notificationErr = "required";
 }
 else{
 $notification = test_input($_POST['notification']);
@@ -89,6 +89,12 @@ return $data;
 ?>
 <html>
 <head>
+<style>
+.error {
+		color: #FF0000;
+		font-size: 15px;
+		}
+</style>
 	<meta charset="UTF-8">
 	<title>Register - Student Accommodation Website </title>
 	<link rel="stylesheet" href="css/style.css" type="text/css">
@@ -130,38 +136,40 @@ return $data;
 				<div>
 					<div class="register">
 						<h2>Register Now!</h2>
+						<p><span class="error">* required field.</span></p>
 						<form role="form" action="" method="post" name="RegForm" >
 							<div>
 								<table>
 									<tr>
 										<td><label for="First_Name"><span>F</span>irst<span> N</span>ame:</label></td>
 										<td><input type="text" name="First_Name" id="InputName" ></td>
-										<td><span class="error">* <?php echo $firstnameErr;?></span></td>
+										<td><div class="error">* <?php echo $firstnameErr;?></div></td>
+										<!--<td><style ="font size:15px; font color:red;">* <?php echo $firstnameErr;?></td>-->
 									</tr>
 									<tr>
 										<td><label for="Last_Name"><span>L</span>ast<span> N</span>ame:</label></td>
 										<td><input type="text" name="Last_Name" id="InputName"></td>
-										<td><span class="error">* <?php echo $lastnameErr;?></span></td>
+										<td><div class="error">* <?php echo $lastnameErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="NIC"><span>NIC</span> No:</label></td>
 										<td><input type="Char" name="NIC" id="InputName"></td>
-										<td><span class="error">* <?php echo $NICErr;?></span></td>
+										<td><div class="error">* <?php echo $NICErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="tel-number"><span>T</span>el.<span> N</span>umber:</label></td>
 										<td><input type="text" name="tel-number" id="InputName"></td>
-										<td><span class="error">* <?php echo $contactnoErr;?></span></td>
+										<td><div class="error">* <?php echo $contactnoErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="address"><span>A</span>ddress:</label></td>
 										<td><textarea name="address" id="InputName" cols="30" rows="5"></textarea></td>
-										<td><span class="error">* <?php echo $addressErr;?></span></td>
+										<td><div class="error">* <?php echo $addressErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="email"><span>E</span>mail <span>A</span>ddress:</label></td>
 										<td><input type="email" name="email" id="InputEmailFirst"></td>
-										<td><span class="error">* <?php echo $emailErr;?></span></td>
+										<td><div class="error">* <?php echo $emailErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="SEND E-MAIL NOTIFICATIONS"><span>E</span>mail <span>N</span>otification:</label></td>
@@ -187,12 +195,12 @@ return $data;
 									<tr>
 										<td><label for="USER NAME"><span>U</span>ser<span> N</span>ame:<br>(Enter Reg:no)</label></td>
 										<td><input type="text" name="username" id="InputName"></td>
-										<td><span class="error">* <?php echo $regnoErr;?></span></td>
+										<td><div class="error">* <?php echo $regnoErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="PASSWORD"<span>P</span>assword:</label></td>
 										<td><input type="password" name="password" id="InputName" ></td>
-										<td><span class="error">* <?php echo $passwordErr;?></span></td>
+										<td><div class="error">* <?php echo $passwordErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="CONFIRM PASSWORD"<span>C</span>onform<span> P</span>assword:</label></td>
