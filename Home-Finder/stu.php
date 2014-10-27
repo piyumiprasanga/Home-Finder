@@ -16,7 +16,10 @@ $row=mysql_fetch_row($result);
 
 //compairing values
 if (!empty($un) && !empty($pass)) {
-	if ($row[0]==$pass) {
+	if($un=="Admin" && $row[0]==$pass){
+	include('index1.html');
+	}
+	else if ($row[0]==$pass) {
 	include('student.html');
 	
 	}else {

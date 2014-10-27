@@ -1,3 +1,107 @@
+<!DOCTYPE html>
+<?php
+
+$dbhandle = mysql_connect("localhost", "root", "") or die ("Unable to connect to MySQL");
+$selected = mysql_select_db("test",$dbhandle) or die("Could not select examples");
+?>
+
+<?php
+$addressErr=$typeErr=$facilityErr=$feesErr=$contactnoErr=$emailErr=$distanceErr=$nameErr=$NICErr="";
+$address = $type = $facility = $fees = $contactno = $email = $distance = $other = $name = $NIC = $message="";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+if (empty($_POST['address'])){
+$addressErr = "required";
+}
+else{
+$address = test_input($_POST['address']);
+}
+
+$type = test_input($_POST['Rent_Type']);
+
+
+if (preg_match("/^[0-9a-zA-Z -]+$/",$_POST['facility']) === 0){
+$facilityErr = "Invalid details";
+}
+else{
+$facility = test_input(md5($_POST['facility']));
+}
+if (preg_match("/^[0-9]{10,}$/",$_POST['fees']) === 0){
+$feesErr = " Invalid details";
+}
+else{
+$fees = test_input($_POST['fees']);
+}
+if (preg_match("/^[0-9]{10,}$/",$_POST['tel-number']) === 0){
+$contactnoErr = "enter valid phone number";
+}
+else{
+$contactno = test_input($_POST['tel-number']);
+}
+
+if (empty($_POST['email'])){
+$emailErr = "required";
+}
+else{
+$email = test_input($_POST['email']);
+}
+
+if (preg_match("/^[a-zA-Z][a-zA-Z -]+$/",$_POST['First_Name']) === 0){
+$firstnameErr = "Name must be from letters";
+}
+else{ 
+$firstname = test_input($_POST['First_Name']);
+}
+
+if (preg_match("/^[a-zA-Z][a-zA-Z -]+$/",$_POST['Last_Name']) === 0){
+$lastnameErr = "Name must be from letters";
+}
+else{
+$lastname = test_input($_POST['Last_Name']);
+}
+
+if (preg_match("/^[0-9a-zA-Z]{10}$/",$_POST['NIC']) === 0){
+$NICErr = "NIC must contain 9 digits";
+}
+else{
+$NIC = test_input($_POST['NIC']);
+}
+
+if (preg_match("/^[0-9a-zA-Z -]{5,}$/",$_POST['username']) === 0){
+$regnoErr = "required";
+}
+else{
+$regno = test_input($_POST['username']);
+}
+
+
+
+
+$faculty = test_input($_POST['faculty']);
+
+
+
+
+if (empty($_POST['notification'])){
+$notificationErr = "required";
+}
+else{
+$notification = test_input($_POST['notification']);
+}
+}
+
+mysql_query("insert into prospective_tenent(Reg_No,First_Name,Last_Name,Email,NIC,Faculty,Address,Contact_No,Password,Notification)VALUES('$regno','$firstname','$lastname','$email','$NIC','$faculty','$address','$contactno','$password','$notification')");
+mysql_close($dbhandle);
+
+function test_input($data){
+$data = trim($data);
+$data = stripslashes($data);
+$data = htmlspecialchars($data);
+return $data;
+}
+?>
+
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -64,19 +168,19 @@
 									</tr>
 									<tr>
 										<td><label for="Facilities"><span>F</span>acilities:</label></td>
-										<td><textarea name="other" id="other" cols="48" rows="3"></textarea></td>
+										<td><textarea name="facility" id="$facility" cols="48" rows="3"></textarea></td>
 									<tr>
 										<td><label for="Fees"><span>F</span>ees/(rs):</label></td>
-										<td><input type="varchar" id="fees"></td>
+										<td><input type="varchar" name="fees" id="fees"></td>
 									</tr>
 									<tr>
 										<td><label for="tel-number"><span>T</span>el.<span>N</span>umber:</label></td>
-										<td><input type="text" id="tel-number"></td>
+										<td><input type="text" name="tel-number" id="tel-number"></td>
 									</tr>
 									
 									<tr>
 										<td><label for="email"><span>E</span>mail <span> A</span>ddress:</label></td>
-										<td><input type="text" id="email"></td>
+										<td><input type="text" name="email" id="email"></td>
 									</tr>
 									<tr>
 										<td><label for="Destince"><span>D</span>estince:</label></td>
