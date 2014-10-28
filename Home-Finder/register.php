@@ -6,8 +6,8 @@ $selected = mysql_select_db("test",$dbhandle) or die("Could not select examples"
 ?>
 
 <?php
-$firstnameErr=$lastnameErr=$NICErr=$regnoErr=$addressErr=$emailErr=$facultyErr=$passwordErr=$contactnoErr=$notificationErr="";
-$firstname = $lastname = $NIC = $regno = $address = $email = $faculty = $password = $contactno = $notification="";
+$firstnameErr=$lastnameErr=$NICErr=$regnoErr=$addressErr=$emailErr=$facultyErr=$passwordErr=$contactnoErr=$notificationErr=$passwordconfirmErr="";
+$firstname = $lastname = $NIC = $regno = $address = $email = $faculty = $password = $contactno = $notification= $passwordconfirm ="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -74,6 +74,15 @@ $notificationErr = "required";
 }
 else{
 $notification = test_input($_POST['notification']);
+}
+
+$confirmpassword = test_input($_POST['password_conf']);
+
+if($password == $confirmpassword){
+$confirmpasswordErr = "";
+}
+else{
+$confirmpasswordErr="Password does not match";
 }
 }
 
@@ -203,8 +212,9 @@ return $data;
 										<td><div class="error">* <?php echo $passwordErr;?></div></td>
 									</tr>
 									<tr>
-										<td><label for="CONFIRM PASSWORD"<span>C</span>onform<span> P</span>assword:</label></td>
+										<td><label for="CONFIRM PASSWORD"<span>C</span>onfirm<span> P</span>assword:</label></td>
 										<td><input type="password" name="password_conf" id="InputName"></td>
+										<td><div class="error">* <?php echo $passwordErr;?></div></td>
 									
 									</tr>
 

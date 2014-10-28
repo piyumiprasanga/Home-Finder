@@ -6,8 +6,8 @@ $selected = mysql_select_db("test",$dbhandle) or die("Could not select examples"
 ?>
 
 <?php
-$addressErr=$typeErr=$facilityErr=$feesErr=$contactnoErr=$emailErr=$distanceErr=$nameErr=$NICErr="";
-$address = $type = $facility = $fees = $contactno = $email = $distance = $other = $name = $NIC = $message="";
+$addressErr=$renttypeErr=$facilitiesErr=$priceErr=$contactnoErr=$emailErr=$placeErr=$otherErr=$fullnameErr=$NICErr=$message="";
+$address = $renttype = $facilities = $price = $contactno = $email = $place = $other = $fullname = $NIC= $message="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -18,47 +18,11 @@ else{
 $address = test_input($_POST['address']);
 }
 
-$type = test_input($_POST['Rent_Type']);
-
-
-if (preg_match("/^[0-9a-zA-Z -]+$/",$_POST['facility']) === 0){
-$facilityErr = "Invalid details";
+if (preg_match("/^[a-zA-Z][a-zA-Z -]+$/",$_POST['Rent_Type']) === 0){
+$renttypeErr = "required";
 }
 else{
-$facility = test_input(md5($_POST['facility']));
-}
-if (preg_match("/^[0-9]{10,}$/",$_POST['fees']) === 0){
-$feesErr = " Invalid details";
-}
-else{
-$fees = test_input($_POST['fees']);
-}
-if (preg_match("/^[0-9]{10,}$/",$_POST['tel-number']) === 0){
-$contactnoErr = "enter valid phone number";
-}
-else{
-$contactno = test_input($_POST['tel-number']);
-}
-
-if (empty($_POST['email'])){
-$emailErr = "required";
-}
-else{
-$email = test_input($_POST['email']);
-}
-
-if (preg_match("/^[a-zA-Z][a-zA-Z -]+$/",$_POST['First_Name']) === 0){
-$firstnameErr = "Name must be from letters";
-}
-else{ 
-$firstname = test_input($_POST['First_Name']);
-}
-
-if (preg_match("/^[a-zA-Z][a-zA-Z -]+$/",$_POST['Last_Name']) === 0){
-$lastnameErr = "Name must be from letters";
-}
-else{
-$lastname = test_input($_POST['Last_Name']);
+$renttype = test_input($_POST['Rent_Type']);
 }
 
 if (preg_match("/^[0-9a-zA-Z]{10}$/",$_POST['NIC']) === 0){
@@ -68,30 +32,54 @@ else{
 $NIC = test_input($_POST['NIC']);
 }
 
-if (preg_match("/^[0-9a-zA-Z -]{5,}$/",$_POST['username']) === 0){
-$regnoErr = "required";
+if (empty($_POST['Facilities'])){
+$facilitiesErr = "required";
 }
 else{
-$regno = test_input($_POST['username']);
+$facilities = test_input($_POST['Facilities']);
 }
 
-
-
-
-$faculty = test_input($_POST['faculty']);
-
-
-
-
-if (empty($_POST['notification'])){
-$notificationErr = "required";
+if (empty($_POST['fees'])){
+$priceErr = "required";
 }
 else{
-$notification = test_input($_POST['notification']);
+$price = test_input($_POST['fees']);
+}
+
+if (empty($_POST['email'])){
+$emailErr = "required";
+}
+else{
+$email = test_input($_POST['email']);
+}
+
+if (preg_match("/^[0-9]{10,}$/",$_POST['tel-number']) === 0){
+$contactnoErr = "enter valid phone number";
+}
+else{
+$contactno = test_input($_POST['tel-number']);
+}
+
+if (empty($_POST['Destince'])){
+$placeErr = "required";
+}
+else{
+$place = test_input($_POST['Destince']);
+}
+
+$other = test_input($_POST['other']);
+$message = test_input($_POST['message']);
+
+if (preg_match("/^[a-zA-Z][a-zA-Z -]+$/",$_POST['name']) === 0){
+$fullnameErr = "Name must be from letters";
+}
+else{ 
+$fullname = test_input($_POST['name']);
 }
 }
 
-mysql_query("insert into prospective_tenent(Reg_No,First_Name,Last_Name,Email,NIC,Faculty,Address,Contact_No,Password,Notification)VALUES('$regno','$firstname','$lastname','$email','$NIC','$faculty','$address','$contactno','$password','$notification')");
+mysql_query("insert into acc_provider(NIC,Name,Email,Contact_No,Message)VALUES('$NIC','$fullname','$email','$contactno','$message')");
+mysql_query("insert into accommodation(Address,Type,Facilities,Price,Area,Other,NIC)VALUES('$address','$renttype','$facilities','$price','$place','$other','$NIC')");
 mysql_close($dbhandle);
 
 function test_input($data){
@@ -101,9 +89,14 @@ $data = htmlspecialchars($data);
 return $data;
 }
 ?>
-
 <html>
 <head>
+<style>
+.error {
+		color: #FF0000;
+		font-size: 15px;
+		}
+</style>
 	<meta charset="UTF-8">
 	<title>Register - Student Accommodation Website </title>
 	<link rel="stylesheet" href="css/style.css" type="text/css">
@@ -145,46 +138,44 @@ return $data;
 				<div>
 					<div class="register">
 						<h2><label><span>A</span>ccommodation<span>  F</span>orm</h2>
-						<form action="activities.html">
+						<p><span class="error">* required field.</span></p>
+						<form role="form" action="" method="post" name="Accommodation_Form">
 						<div>
 								<table>
 									<tr>
 										<td><label for="address"><span>A</span>ddress:</label></td>
 										<td><textarea name="address" id="address" cols="30" rows="5"></textarea></td>
+										<td><div class="error">* <?php echo $addressErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="Rent_Type"><span>R</span>ent<span> T</span>ype:</label></td>
-										
-										<td><select name="Rent_Type" maxlength="20">
-											<option SELECTED>Rooms</option>
-											<option>House</option>
-											<option>Annex</option>
-											<option>Flat</option>
-											<option>Other</option>
-					
-									</select></td>
-										<!--<td><label for="Rent_Type"><span>R</span>ent<span> T</span>ype:</label></td>
-										<td><input type="text" id="Rent_Type"></td>-->
+										<td><input type="text" name="Rent_Type" id="Rent_Type"></td>
+										<td><div class="error">* <?php echo $renttypeErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="Facilities"><span>F</span>acilities:</label></td>
-										<td><textarea name="facility" id="$facility" cols="48" rows="3"></textarea></td>
+										<td><input type="text" name="Facilities" id="Facilities" width="100" height="5"></td>
+										<td><div class="error">* <?php echo $facilitiesErr;?></div></td>
 									<tr>
-										<td><label for="Fees"><span>F</span>ees/(rs):</label></td>
+										<td><label for="Fees"><span>F</span>ees:</label></td>
 										<td><input type="varchar" name="fees" id="fees"></td>
+										<td><div class="error">* <?php echo $priceErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="tel-number"><span>T</span>el.<span>N</span>umber:</label></td>
 										<td><input type="text" name="tel-number" id="tel-number"></td>
+										<td><div class="error">* <?php echo $contactnoErr;?></div></td>
 									</tr>
 									
 									<tr>
 										<td><label for="email"><span>E</span>mail <span> A</span>ddress:</label></td>
 										<td><input type="text" name="email" id="email"></td>
+										<td><div class="error">* <?php echo $emailErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="Destince"><span>D</span>estince:</label></td>
-										<td><input type="varchar" id="Destince"></td>
+										<td><input type="varchar" name="Destince" id="Destince"></td>
+										<td><div class="error">* <?php echo $placeErr;?></div></td>
 									</tr>
 									<tr>
 										<td><label for="Other"><span>O</span>ther:</label></td>
@@ -197,11 +188,13 @@ return $data;
 							<table>
 								<tr>
 									<td><label for="name"><span>F</span>ull<span> N</span>ame:</label></td>
-									<td><input type="text" id="name"></td>
+									<td><input type="text" name="name" id="name"></td>
+									<td><div class="error">* <?php echo $fullnameErr;?></div></td>
 								</tr>
 								<tr>
 									<td><label for="NIC"><span>NIC</span><span> No:</label></td>
-									<td><input type="char" id="NIC"></td>
+									<td><input type="char" name="NIC" id="NIC"></td>
+									<td><div class="error">* <?php echo $NICErr;?></div></td>
 								</tr>
 								
 								<tr>
